@@ -59,9 +59,10 @@ Route::get('/query/where','Test\TestController@query2');
 //Route::match(['get','post'],'/test/abc','Test\TestController@abc');
 Route::any('/test/abc','Test\TestController@abc');
 
-
+//test
 Route::get('/test/test1','Test\TestController@viewTest1');
 Route::get('/test/test2','Test\TestController@viewTest2');
+Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间件测试
 
 
 //用户注册
