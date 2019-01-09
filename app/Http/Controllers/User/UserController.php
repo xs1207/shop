@@ -103,9 +103,10 @@ class UserController extends Controller
 
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
+//				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
 				setcookie('name',$res->name,time()+86400,'/','shop.com',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
+
 				$request->session()->put('u_token',$token);
 				echo "登陆成功";
 				header("refresh:1;/users/center");
@@ -126,18 +127,22 @@ class UserController extends Controller
 		}else{
 			echo "正常请求";
 		}
-
+/*
 		echo 'u_token: '.$request->session()->get('u_token');echo '</br>';
 		echo '<pre>';print_r($_COOKIE);echo '</pre>';
 		die;
-
+*/
 
 		if(empty($_COOKIE['name'])){
 			header('Refresh:1;url=/users/login');
 			echo "请先登录";
 			die;
 		}else{
-			echo 'NAME:'.$_COOKIE['name'].'欢迎回来1';
+			echo 'NAME:'.$_COOKIE['name'].'欢迎回来';
+			$list=UserModel::all()->toArray();
+			$data=['list'=>$list];
+			return view('user.center',$data);
+
 		}
 	}
 }

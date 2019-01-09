@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class CheckCookie
+class CheckLoginToken
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,13 @@ class CheckCookie
      */
     public function handle($request, Closure $next)
     {
-        echo phpinfo();echo "</br>";
+        if(!$request->session()->get('u_token')){
+            header('Refresh:1;url=/users/login');
+            echo "请先登录";
+            die;
+        }
         return $next($request);
     }
+
+
 }

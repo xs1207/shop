@@ -87,4 +87,13 @@ Route::get('mvc/bst','Mvc\MvcController@bst');
 
 
 
+//购物车
+Route::get('/cart','Cart\CartController@index')->middleware('check.login.token');
+Route::get('/cart/add/{goods_id}','Cart\CartController@add')->middleware('check.login.token');//添加购物车
+Route::get('/cart/add2','Cart\CartController@add2')->middleware('check.oogin.token');//添加购物车
+Route::get('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.login.token');//删除商品
+
+
+//商品
+Route::get('/goods/{goods_id}','Goods\GoodsController@index');//商品详情
 

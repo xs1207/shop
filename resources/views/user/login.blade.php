@@ -1,6 +1,7 @@
 @extends('layouts.bst')
 
 @section('content')
+    <h2 class="form-signin-heading" style="margin-left: 100px">请登录</h2>
     <form class="form-horizontal" action="/users/login" method="post" style="margin-top: 30px">
         {{csrf_field()}}
         <div class="form-group" >
