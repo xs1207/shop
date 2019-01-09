@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Goods;
 
-use App\Model\GoodsModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+use App\Model\GoodsModel;
+
+class GoodsController extends Controller
 {
     //
     public function index($goods_id)

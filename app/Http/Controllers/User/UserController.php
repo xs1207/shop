@@ -103,11 +103,12 @@ class UserController extends Controller
 
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-//				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
+				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
 				setcookie('name',$res->name,time()+86400,'/','shop.com',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
 
 				$request->session()->put('u_token',$token);
+				$request->session()->put('uid',$res->uid);
 				echo "登陆成功";
 				header("refresh:1;/users/center");
 			}else{
@@ -133,7 +134,7 @@ class UserController extends Controller
 		die;
 */
 
-		if(empty($_COOKIE['name'])){
+		if(empty($_COOKIE['uid'])){
 			header('Refresh:1;url=/users/login');
 			echo "请先登录";
 			die;

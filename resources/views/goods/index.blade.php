@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>{{$goods->goods_num}}</h1>
+        <h1>{{$goods->goods_name}}</h1>
 
         <span>{{$goods->price / 100}}</span>
 
@@ -20,7 +20,7 @@
     </div>
 @endsection
 
-@section('fotter')
+@section('footer')
     @parent
     <script src="{{URL::asset('/js/goods/goods.js')}}"></script>
 @endsection
