@@ -90,13 +90,21 @@ Route::get('mvc/bst','Mvc\MvcController@bst');
 //购物车
 Route::get('/cart','Cart\CartController@index')->middleware('check.login.token');
 Route::get('/cart/add/{goods_id}','Cart\CartController@add')->middleware('check.login.token');//添加购物车
-Route::post('/cart/add2','Cart\CartController@add2')->middleware('check.login.token');//添加购物车
+Route::post('/cart/add2','Cart\CartController@add2');//添加购物车
 Route::get('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.login.token');//删除商品
-Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.login.token');//删除商品
-
-
+//Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.login.token');//删除商品
+Route::post('/cart/del2','Cart\CartController@dell')->middleware('check.login.token');//删除商品
 //商品
-Route::get('/goods/{goods_id}','Goods\GoodsController@index');//商品详情
+
+Route::get('/goods/list','Goods\GoodsController@goodsList');//商品列表
+
+Route::get('/goods/detail/{goods_id}','Goods\GoodsController@index');//商品详情
+
 
 //订单
 Route::get('/order/add','Order\OrderController@add');//下单  及生成订单
+Route::get('/order/list','Order\OrderController@orderList');//订单号列表
+
+
+//支付
+Route::get('/pay/ment/{order_id}','Pay\OrderController@order')->middleware('check.login.token');//订单支付

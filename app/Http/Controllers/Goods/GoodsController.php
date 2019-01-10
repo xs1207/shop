@@ -22,4 +22,12 @@ class GoodsController extends Controller
         ];
         return view('goods.index',$data);
     }
+
+
+    public function goodsList()
+    {
+        $list=GoodsModel::all()->toArray();
+        $data=['list'=>$list];
+        return view('goods.list',$data);
+    }
 }

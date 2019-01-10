@@ -110,7 +110,7 @@ class UserController extends Controller
 				$request->session()->put('u_token',$token);
 				$request->session()->put('uid',$res->uid);
 				echo "登陆成功";
-				header("refresh:1;/users/center");
+				header("refresh:1;/goods/list");
 			}else{
 				echo "账号或密码有误";
 				header("refresh:1;/users/login");

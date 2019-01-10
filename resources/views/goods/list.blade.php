@@ -1,10 +1,9 @@
 @extends('layouts.bst')
 
 @section('content')
-    <h2 class="form-signin-heading" style="margin-left: 0px">购物车列表</h2>
     <table class="table table-bordered">
         <thead>
-        <td>商品ID</td><td>商品名称</td><td>商品数量</td><td>添加时间</td><td>操作</td>
+        <td>商品ID</td><td>商品名称</td><td>库存</td><td>价格</td><td>添加时间</td><td>操作</td>
         </thead>
         <br>
         <tbody>
@@ -12,11 +11,11 @@
             <tr>
                 <td>{{$v['goods_id']}}</td>
                 <td>{{$v['goods_name']}}</td>
-                <td>{{$v['num']}}</td>
+                <td>{{$v['store']}}</td>
+                <td>{{$v['price'] / 100}}</td>
                 <td>{{date('Y-m-d H:i:s',$v['add_time'])}}</td>
                 <td>
-                    <button class="btn btn-danger del" del_id="{{$v['goods_id']}}">删除</button>
-                    <a href="/order/add/" id="submit_order" class="btn btn-info">提交订单</a>
+                    <a href="/goods/detail/{{$v['goods_id']}}" class="btn btn-info">详情</a>
                 </td>
             </tr>
         @endforeach
@@ -26,5 +25,4 @@
 
 @section('footer')
     @parent
-    <script src="{{URL::asset('/js/goods/goods.js')}}"></script>
 @endsection

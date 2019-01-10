@@ -98,6 +98,13 @@ class CartController extends Controller
             ];
             return $response;
         }
+        if(empty($this->uid)){
+            $response=[
+                'msg'=>"请先登录",
+                'error'=>0
+            ];
+            return $response;
+        }
 
         //检测购物车重复商品
         $cart_goods=CartModel::where(['uid'=>$this->uid])->get()->toArray();
@@ -106,7 +113,7 @@ class CartController extends Controller
 
             if(in_array($goods_id,$goods_id_arr)){
                 $response=[
-                    'erron'=>5002,
+                    'error'=>5002,
                     'msg'=>"购物车已有此商品，请勿重复添加"
                 ];
                 return $response;
@@ -127,7 +134,7 @@ class CartController extends Controller
         $cid = CartModel::insertGetId($data);
         if(!$cid){
             $response = [
-                'errno' => 5002,
+                'error' => 5002,
                 'msg'   => '添加购物车失败，请重试'
             ];
             return $response;
@@ -166,7 +173,7 @@ class CartController extends Controller
      * 2019年1月9日15:28:46
      * @param $goods_$abc 商品ID
      */
-    public function del2($goods_id)
+/*    public function del2($goods_id)
     {
         $res=CartModel::where(['uid'=>$this->uid,'goods_id'=>$goods_id])->delete();
         if($res){
@@ -174,6 +181,17 @@ class CartController extends Controller
         }else{
             echo '商品ID ：'.$goods_id."删除成功2";
         }
+    }
+*/
+    public function dell(Request $request)
+    {
+        $goods_id=$request->input("goods_id");
+        CartModel::where(['uid'=>$this->uid,'goods_id'=>$goods_id])->delete();
+        $response=[
+          'error'=>  0,
+          'msg'=>"删除成功"
+        ];
+        return $response;
     }
 
 }

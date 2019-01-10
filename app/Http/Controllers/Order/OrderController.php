@@ -38,7 +38,7 @@ class OrderController extends Controller
 
         //生成订单号
         $order_sn = OrderModel::generateOrderSN();
-        echo $order_sn;echo "</br>";
+//        echo $order_sn;echo "</br>";
         $data=[
             'order_sn'=>$order_sn,
             'uid'=>session()->get('uid'),
@@ -50,9 +50,29 @@ class OrderController extends Controller
         if(!$oid){
             echo "下单失败";
         }
-        echo '下单成功,订单号：'.$oid .' 跳转支付';
+        echo '下单成功,订单号：'.$oid;
+        header("Refresh:1;url=/order/list");
 
         //清空购物车
         CartModel::where(['uid'=>session()->get('uid')])->delete();
+    }
+
+
+    /**
+     * 订单号展示
+     */
+    public function orderList(Request $request)
+    {
+        $list=OrderModel::all()->toArray();
+        $data=['list'=>$list];
+        return view('order.list',$data);
+    }
+
+    /**
+     * 订单支付
+     */
+    public function orderPay()
+    {
+
     }
 }
