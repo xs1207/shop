@@ -111,3 +111,8 @@ Route::get('/order/list','Order\OrderController@orderList')->middleware('check.l
 
 //支付
 Route::get('/pay/ment/{order_id}','Pay\IndexController@order')->middleware('check.login.token');//订单支付
+
+
+//分布式   测试
+Route::get('/pay/order','Order\OrderController@pay');
+

@@ -72,6 +72,14 @@ class UserController extends Controller
 			$uid=UserModel::insertGetId($data);
 			//var_dump($uid);
 			if($uid){
+				$token = substr(md5(time().mt_rand(1,99999)),10,10);
+//				echo $token;die;
+				setcookie('uid',$u->uid,time()+86400,'/','shop.com',false,true);
+				setcookie('name',$u->name,time()+86400,'/','shop.com',false,true);
+				setcookie('token',$token,time()+86400,'/users','',false,true);
+
+				$request->session()->put('u_token',$token);
+				$request->session()->put('uid',$u->uid);
 				setcookie('name',$u,time()+86400,'/','shop.com',false,true);
 				header("Refresh:1;url=/users/center");
 				echo '注册成功,正在跳转';

@@ -8,6 +8,8 @@ use App\Model\CartModel;
 use App\Model\GoodsModel;
 use App\Model\OrderModel;
 
+use GuzzleHttp\Client;
+
 class OrderController extends Controller
 {
     //
@@ -69,5 +71,23 @@ class OrderController extends Controller
         $data=['list'=>$list];
         return view('order.list',$data);
     }
+
+    /**
+     * 分布式 测试
+     */
+
+    public function pay()
+    {
+        $url='http://www.cms.laravel.com';
+        $client=new Client([
+            'base_uri'=>$url,
+            'timeout'=>2.0,
+        ]);
+
+        $response=$client->request('GET','.order.php');
+        echo $response->getBody();
+    }
+
+
 
 }
