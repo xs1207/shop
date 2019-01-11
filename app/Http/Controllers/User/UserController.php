@@ -146,5 +146,21 @@ class UserController extends Controller
 
 		}
 	}
+
+
+	/**
+	 * 用户退出
+	 */
+	public function logou()
+	{
+		setcookie("name",null);
+		setcookie("uid",null);
+		setcookie("token",null);
+		request()->session()->pull('uid',null);
+		request()->session()->pull('u_token',null);
+		echo "已退出登录";
+		header("Refresh:1;url=/users/login");
+
+	}
 }
 

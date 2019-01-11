@@ -74,6 +74,9 @@ Route::post('/users/reg','User\UserController@doReg');
 Route::get('/users/login','User\UserController@login');
 Route::post('/users/login','User\UserController@dologin');
 
+//用户退出
+Route::get('/users/logou','User\UserController@logou');
+
 
 //用户中心
 Route::get('/users/center','User\UserController@center');
@@ -94,17 +97,17 @@ Route::post('/cart/add2','Cart\CartController@add2');//添加购物车
 Route::get('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.login.token');//删除商品
 //Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.login.token');//删除商品
 Route::post('/cart/del2','Cart\CartController@dell')->middleware('check.login.token');//删除商品
+
 //商品
-
 Route::get('/goods/list','Goods\GoodsController@goodsList');//商品列表
-
+Route::get('goods/add','Goods\GoodsController@add');//商品添加
 Route::get('/goods/detail/{goods_id}','Goods\GoodsController@index');//商品详情
 
 
 //订单
 Route::get('/order/add','Order\OrderController@add');//下单  及生成订单
-Route::get('/order/list','Order\OrderController@orderList');//订单号列表
+Route::get('/order/list','Order\OrderController@orderList')->middleware('check.login.token');//订单号列表
 
 
 //支付
-Route::get('/pay/ment/{order_id}','Pay\OrderController@order')->middleware('check.login.token');//订单支付
+Route::get('/pay/ment/{order_id}','Pay\IndexController@order')->middleware('check.login.token');//订单支付

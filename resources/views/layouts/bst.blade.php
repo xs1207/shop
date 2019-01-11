@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
 
 
-    <title>BootStrap</title>
+    <title>微商城</title>
     <link rel="stylesheet" href="{{URL::asset('/bootstrap/css/bootstrap.min.css')}}">
 </head>
 <body>
@@ -34,7 +34,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">我的订单</a></li>
+                            <li><a href="/order/list">我的订单</a></li>
                             <li><a href="#">待收货</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>
@@ -43,8 +43,8 @@
                             <li><a href="#">One more separated link</a></li>
                         </ul>
                     </li>
-                    <li><a href="/user/login">登录</a></li>
-                    <li><a href="/user/logou">退出</a></li>
+                    <li><a href="/users/login">登录</a></li>
+                    <li><a href="/users/logou">退出</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->

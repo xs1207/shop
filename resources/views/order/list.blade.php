@@ -13,9 +13,9 @@
                 <td>{{$v['order_id']}}</td>
                 <td>{{$v['order_sn']}}</td>
                 <td>{{date('Y-m-d H:i:s',$v['add_time'])}}</td>
-                <td>{{$v['order_amount']}}</td>
+                <td>{{$v['order_amount'] / 100}}</td>
                 <td>
-                    <a href="#">去支付</a>
+                    <a href="/pay/ment/{{$v['order_id']}}" class="btn btn-info">去支付</a>
                 </td>
             </tr>
         @endforeach

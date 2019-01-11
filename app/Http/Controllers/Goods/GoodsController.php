@@ -30,4 +30,9 @@ class GoodsController extends Controller
         $data=['list'=>$list];
         return view('goods.list',$data);
     }
+
+//    public function add()
+//    {
+//
+//    }
 }
