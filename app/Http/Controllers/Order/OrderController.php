@@ -78,13 +78,13 @@ class OrderController extends Controller
 
     public function pay()
     {
-        $url='http://www.cms.laravel.com';
+        $url='http://root.tactshan.com';
         $client=new Client([
             'base_uri'=>$url,
             'timeout'=>2.0,
         ]);
 
-        $response=$client->request('GET','.order.php');
+        $response=$client->request('GET','/order.php');
         echo $response->getBody();
     }
 
