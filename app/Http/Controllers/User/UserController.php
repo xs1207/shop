@@ -74,13 +74,13 @@ class UserController extends Controller
 			if($uid){
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-				setcookie('uid',$u->uid,time()+86400,'/','shop.com',false,true);
-				setcookie('name',$u->name,time()+86400,'/','shop.com',false,true);
+				setcookie('uid',$u->uid,time()+86400,'/','',false,true);
+				setcookie('name',$u->name,time()+86400,'/','',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
 
 				$request->session()->put('u_token',$token);
 				$request->session()->put('uid',$u->uid);
-				setcookie('name',$u,time()+86400,'/','shop.com',false,true);
+				setcookie('name',$u,time()+86400,'/','',false,true);
 				header("Refresh:1;url=/users/center");
 				echo '注册成功,正在跳转';
 			}else{
@@ -111,8 +111,8 @@ class UserController extends Controller
 
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
-				setcookie('name',$res->name,time()+86400,'/','shop.com',false,true);
+				setcookie('uid',$res->uid,time()+86400,'/','',false,true);
+				setcookie('name',$res->name,time()+86400,'/','',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
 
 				$request->session()->put('u_token',$token);
