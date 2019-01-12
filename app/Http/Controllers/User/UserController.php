@@ -147,7 +147,7 @@ class UserController extends Controller
 			echo "请先登录";
 			die;
 		}else{
-			echo 'NAME:'.$_COOKIE['name'].'欢迎回来';
+			echo 'NAME:'.$_COOKIE['name'].'欢迎你的到来';
 			$list=UserModel::all()->toArray();
 			$data=['list'=>$list];
 			return view('user.center',$data);
@@ -166,7 +166,7 @@ class UserController extends Controller
 		setcookie("token",null);
 		request()->session()->pull('uid',null);
 		request()->session()->pull('u_token',null);
-		echo "已退出登录";
+		echo "您已退出登录";
 		header("Refresh:1;url=/users/login");
 
 	}
