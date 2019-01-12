@@ -52,6 +52,7 @@ class UserController extends Controller
 		echo '<pre>';print_r($_POST);'</pre>';*/
 		$upwd=$request->input('upwd');
 		$upwd1=$request->input('upwd1');
+		$name=$request->input('uname');
 		if($upwd!==$upwd1){
 			die("密码不一致");
 		}
@@ -72,17 +73,17 @@ class UserController extends Controller
 			$uid=UserModel::insertGetId($data);
 			//var_dump($uid);
 			if($uid){
+				echo '注册成功,正在跳转';
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-				setcookie('uid',$u->uid,time()+86400,'/','',false,true);
-				setcookie('name',$u->name,time()+86400,'/','',false,true);
+				setcookie('uid',$uid,time()+86400,'/','',false,true);
+				setcookie('name',$name,time()+86400,'/','',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
 
 				$request->session()->put('u_token',$token);
 				$request->session()->put('uid',$u->uid);
-				setcookie('name',$u,time()+86400,'/','',false,true);
 				header("Refresh:1;url=/users/center");
-				echo '注册成功,正在跳转';
+
 			}else{
 				echo "注册失败";
 				header('refresh:1;/users/reg');
