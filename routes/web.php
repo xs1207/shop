@@ -79,7 +79,7 @@ Route::get('/users/logou','User\UserController@logou');
 
 
 //用户中心
-Route::get('/users/center','User\UserController@center');
+Route::get('/users/center','User\UserController@center')->middleware('check.login.token');
 
 
 

@@ -52,7 +52,6 @@ class UserController extends Controller
 		echo '<pre>';print_r($_POST);'</pre>';*/
 		$upwd=$request->input('upwd');
 		$upwd1=$request->input('upwd1');
-		$name=$request->input('uname');
 		if($upwd!==$upwd1){
 			die("密码不一致");
 		}
@@ -73,17 +72,9 @@ class UserController extends Controller
 			$uid=UserModel::insertGetId($data);
 			//var_dump($uid);
 			if($uid){
-				echo '注册成功,正在跳转';
-				$token = substr(md5(time().mt_rand(1,99999)),10,10);
-//				echo $token;die;
-				setcookie('uid',$uid,time()+86400,'/','',false,true);
-				setcookie('name',$name,time()+86400,'/','',false,true);
-				setcookie('token',$token,time()+86400,'/users','',false,true);
-
-				$request->session()->put('u_token',$token);
-				$request->session()->put('uid',$u->uid);
+				setcookie('name',$uid,time()+86400,'/','shop.com',false,true);
 				header("Refresh:1;url=/users/center");
-
+				echo '注册成功,正在跳转';
 			}else{
 				echo "注册失败";
 				header('refresh:1;/users/reg');
@@ -112,8 +103,8 @@ class UserController extends Controller
 
 				$token = substr(md5(time().mt_rand(1,99999)),10,10);
 //				echo $token;die;
-				setcookie('uid',$res->uid,time()+86400,'/','',false,true);
-				setcookie('name',$res->name,time()+86400,'/','',false,true);
+				setcookie('uid',$res->uid,time()+86400,'/','shop.com',false,true);
+				setcookie('name',$res->name,time()+86400,'/','shop.com',false,true);
 				setcookie('token',$token,time()+86400,'/users','',false,true);
 
 				$request->session()->put('u_token',$token);
@@ -132,23 +123,26 @@ class UserController extends Controller
 
 	public function center(Request $request)
 	{
-		if($_COOKIE['token'] !=$request->session()->get('u_token')){
-			die("非法请求");
-		}else{
-			echo "正常请求";
+		if(!empty($_COOKIE['token'])){
+			if($request->session()->get('u_token')!=$_COOKIE['token']){
+				header("Refresh:3;url=/userlogin");
+				die("非法请求");
+			}
 		}
-/*
+
+
+	/*
 		echo 'u_token: '.$request->session()->get('u_token');echo '</br>';
 		echo '<pre>';print_r($_COOKIE);echo '</pre>';
 		die;
-*/
+	*/
 
 		if(empty($_COOKIE['uid'])){
 			header('Refresh:1;url=/users/login');
 			echo "请先登录";
 			die;
 		}else{
-			echo 'NAME:'.$_COOKIE['name'].'欢迎你的到来';
+			echo 'NAME:'.$_COOKIE['name'].'欢迎回来';
 			$list=UserModel::all()->toArray();
 			$data=['list'=>$list];
 			return view('user.center',$data);
@@ -167,7 +161,7 @@ class UserController extends Controller
 		setcookie("token",null);
 		request()->session()->pull('uid',null);
 		request()->session()->pull('u_token',null);
-		echo "您已退出登录";
+		echo "已退出登录";
 		header("Refresh:1;url=/users/login");
 
 	}
