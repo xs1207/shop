@@ -108,11 +108,18 @@ Route::get('/goods/detail/{goods_id}','Goods\GoodsController@index');//商品详
 Route::get('/order/add','Order\OrderController@add');//下单  及生成订单
 Route::get('/order/list','Order\OrderController@orderList')->middleware('check.login.token');//订单号列表
 
+/*
 
 //支付
 Route::get('/pay/ment/{order_id}','Pay\IndexController@order')->middleware('check.login.token');//订单支付
 
+*/
 
 //分布式   测试
 Route::get('/pay/order','Order\OrderController@pay');
 
+
+//支付
+Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试
+Route::get('/pay/ment/{order_id}','Pay\IndexController@order')->middleware('check.login.token');         //订单支付
+Route::post('/pay/alipay/notify','Pay\AlipayController@notify');        //支付宝支付 通知回调
