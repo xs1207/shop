@@ -16,12 +16,12 @@
                 <td>{{date('Y-m-d H:i:s',$v['add_time'])}}</td>
                 <td>
                     <button class="btn btn-danger del" del_id="{{$v['goods_id']}}">删除</button>
-                    <a href="/order/add/" id="submit_order" class="btn btn-info">提交订单</a>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+    <a href="/order/add/" id="submit_order" class="btn btn-info" style="margin-left: 970px">提交订单</a>
 @endsection
 
 @section('footer')

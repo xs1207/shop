@@ -27,6 +27,7 @@ class OrderController extends Controller
         $cart_goods=CartModel::where(['uid'=>session()->get('uid')])->orderBy('id','desc')->get()->toArray();
 //        print_r($cart_goods);die;
         if(empty($cart_goods)){
+            header("Refresh:1;url=/goods/list");
             die("购物车中无商品");
         }
         $order_amount=0;
@@ -58,7 +59,7 @@ class OrderController extends Controller
         header("Refresh:1;url=/order/list");
 
         //清空购物车
-        CartModel::where(['uid'=>session()->get('uid'),'id'=>$cid])->delete();
+        CartModel::where(['uid'=>session()->get('uid')])->delete();
     }
 
 

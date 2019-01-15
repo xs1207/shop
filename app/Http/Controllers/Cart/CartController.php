@@ -36,6 +36,7 @@ class CartController extends Controller
 
         $cart_goods=CartModel::where(['uid'=>$this->uid])->get()->toArray();
         if(empty($cart_goods)){
+            header("Refresh:1;url=/goods/list");
             die("购物车是空的");
         }
         if($cart_goods){
