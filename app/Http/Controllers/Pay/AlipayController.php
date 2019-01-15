@@ -104,8 +104,8 @@ class AlipayController extends Controller
 
         //业务参数
         $bizcont = [
-            'subject'           => 'Lening-Order: ' .$oid,
-            'out_trade_no'      => $oid,
+            'subject'           => 'Lening-Order: ' .$order_id,
+            'out_trade_no'      => $order_id,
             'total_amount'      => $order_info['order_amount'] / 100,
             'product_code'      => 'QUICK_WAP_WAY',
 
@@ -218,28 +218,47 @@ class AlipayController extends Controller
     //支付宝 同步回调地址
     public function aliReturn()
     {
-        header('Refresh:2;url=/order/list');
+        //header('Refresh:2;url=/order/list');
         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
-//        echo '<pre>';print_r($_GET);echo "</pre>";
-//        //验签  支付宝公钥
-//        if(!$this->verify($_GET)){
-//            die("签名失败");
-//        }
-//        //验证交易状态
-////        if(!$_GET['']){
-////
-////        }
-//
-//        //处理订单逻辑
-//        $this->dealOrder($_GET);
+        echo '<pre>';print_r($_GET);echo "</pre>";
+
     }
 
-//    //支付宝 异步回调通知
-//    public function aliNotify()
-//    {
-//
-//    }
+    //支付宝 异步回调通知
+    public function aliNotify()
+    {
+        $data=json_encode($_POST);
+        $log_str='>>>>'.date('Y-m-d H:i:s').$data."<<<<\n\n";
+        //记录日志
+        file_put_contents('log/alipay.log',$log_str.FILE_APPEND);
+        //验签
+        $res=$this->verify($_POST);
+
+        $log_str = '>>>>'.date('Y-m-d H:i:s');
+        if($res===false){
+            //记录日志 验签失败
+            $log_str .="Sign Failed!<<<<< \n\n";
+            fiel_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        }else{
+            $log_str .="Sign OK!<<<<< \n\n";
+            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+        }
+
+        //验证订单交易状态
+        if($_POST['trade_status']=='TRADE_SUCCESS'){
+            //更新订单状态
+            $oid=$_POST['out_trade_no'];        //商户订单号
+            $info = [
+                'is_pay'=>1,   //支付状态  0未支付   1已支付
+                'pay_amount'=>$_POST['total_amount']*100,   //支付金额
+                'pay_time'=>strtotime($_POST['gmt_payment']),
+                'plat_oid'=>$_POST['trade_no'],     //支付宝订单号
+                'plat'=>1,          //平台编号 1支付宝   2微信
+            ];
+            OrderModel::where(['order_id'=>$oid])->update($info);
+        }
+    }
 
     //验签
     function verify($params){
