@@ -49,7 +49,7 @@ class AlipayController extends Controller
     }
 
 
-    public function test()
+   /* public function test()
     {
 
         $bizcont = [
@@ -82,7 +82,7 @@ class AlipayController extends Controller
         $url = rtrim($param_str,'&');
         $url = $this->gate_way . $url;
         header("Location:".$url);
-    }
+    }*/
 
     /*
      * 订单支付
@@ -221,7 +221,7 @@ class AlipayController extends Controller
         //header('Refresh:2;url=/order/list');
         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
-        echo '<pre>';print_r($_GET);echo "</pre>";
+        //echo '<pre>';print_r($_GET);echo "</pre>";
 
     }
 
@@ -231,7 +231,7 @@ class AlipayController extends Controller
         $data=json_encode($_POST);
         $log_str='>>>>'.date('Y-m-d H:i:s').$data."<<<<\n\n";
         //记录日志
-        file_put_contents('logs/alipay.log',$log_str.FILE_APPEND);
+        file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         //验签
         $res=$this->verify($_POST);
 
@@ -239,7 +239,7 @@ class AlipayController extends Controller
         if($res===false){
             //记录日志 验签失败
             $log_str .="Sign Failed!<<<<< \n\n";
-            fiel_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
+            file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         }else{
             $log_str .="Sign OK!<<<<< \n\n";
             file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
