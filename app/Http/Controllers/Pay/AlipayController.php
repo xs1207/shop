@@ -56,7 +56,7 @@ class AlipayController extends Controller
 
         $bizcont = [
             'subject'           => 'ancsd'. mt_rand(1111,9999).str_random(6),
-            'out_trade_no'      => 'oid'.date('YmdHis').mt_rand(1111,2222),
+            'out_trade_no'      => 'order_id'.date('YmdHis').mt_rand(1111,2222),
             'total_amount'      => 0.01,
             'product_code'      => 'QUICK_WAP_WAY',
 
@@ -90,7 +90,7 @@ class AlipayController extends Controller
 
     /**
      * 订单支付
-     * @param $oid
+     * @param $order_id
      */
     public function pay($order_id)
     {
@@ -227,24 +227,8 @@ class AlipayController extends Controller
     public function aliReturn()
     {
 
-
         header('Refresh:2;url=/order/list');
         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
-
-//        echo '<pre>';print_r($_GET);echo '</pre>';die;
-//        //验签 支付宝的公钥
-//        if(!$this->verify($_GET)){
-//            die('簽名失敗');
-//        }
-//
-//        //验证交易状态
-////        if($_GET['']){
-////
-////        }
-////
-//
-//        //处理订单逻辑
-//        $this->dealOrder($_GET);
     }
 
     /**
@@ -279,7 +263,7 @@ class AlipayController extends Controller
                 'pay_amount'    => $_POST['total_amount'] * 100,    //支付金额
                 'pay_time'      => strtotime($_POST['gmt_payment']), //支付时间
                 'plat_oid'      => $_POST['trade_no'],      //支付宝订单号
-                'plat'          => 1,      //平台编号 1支付宝 2微信
+                'plat'          => 1,      //平台编号 1支付宝 2微信 
             ];
 
             OrderModel::where(['order_id'=>$order_id])->update($info);
