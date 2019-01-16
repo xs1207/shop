@@ -15,7 +15,11 @@
                 <td>{{date('Y-m-d H:i:s',$v['add_time'])}}</td>
                 <td>￥{{$v['order_amount'] / 100}}</td>
                 <td>
+                    @if($v['is_pay']==0)
                     <a href="/pay/ment/{{$v['order_id']}}" class="btn btn-info" >去支付</a>
+                    @elseif($v['is_pay']==1)
+                        <a href="#" class="btn btn-info" >已支付</a>
+                    @endif
                     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"class="btn btn-info" >取消订单</a>
                 </td>
             </tr>
