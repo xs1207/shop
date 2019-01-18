@@ -105,7 +105,7 @@ class ExampleController extends Controller
     }
 
     /**
-     * Make a form builder.
+     * Make a Form builder.
      *
      * @return Form
      */

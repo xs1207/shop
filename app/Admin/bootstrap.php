@@ -1,15 +1,16 @@
 <?php
-
+use App\Admin\Extensions\Form\CKEditor;
+use Encore\Admin\Form;
 /**
  * Laravel-admin - admin builder based on Laravel.
  * @author z-song <https://github.com/z-song>
  *
  * Bootstraper for Admin.
  *
- * Here you can remove builtin form field:
+ * Here you can remove builtin Form field:
  * Encore\Admin\Form::forget(['map', 'editor']);
  *
- * Or extend custom form field:
+ * Or extend custom Form field:
  * Encore\Admin\Form::extend('php', PHPEditor::class);
  *
  * Or require js and css assets:
@@ -18,4 +19,8 @@
  *
  */
 
-Encore\Admin\Form::forget(['map', 'editor']);
+Form::forget(['map', 'editor']);
+
+
+
+Form::extend('ckeditor', CKEditor::class);
