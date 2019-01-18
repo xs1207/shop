@@ -106,7 +106,7 @@ Route::get('/goods/detail/{goods_id}','Goods\GoodsController@index');//商品详
 
 //订单
 Route::get('/order/add','Order\OrderController@add');//下单  及生成订单
-Route::get('/order/list','Order\OrderController@orderList')->middleware('check.login.token');//订单号列表
+Route::get('/order/list','Order\OrderController@orderList');//订单号列表
 
 /*
 
@@ -125,3 +125,7 @@ Route::get('/pay/ment/{order_id}','Pay\AlipayController@pay')->middleware('check
 Route::post('/pay/alipay/notify','Pay\AlipayController@aliNotify');        //支付宝支付 t异步通知回调
 Route::get('/pay/alipay/return','Pay\AlipayController@aliReturn');          //支付宝支付 同步通知
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

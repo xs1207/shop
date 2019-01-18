@@ -18,6 +18,11 @@ class OrderController extends Controller
         echo __METHOD__;
     }
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * 下单
      */
