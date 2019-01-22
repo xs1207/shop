@@ -85,5 +85,10 @@ class TestController extends Controller
 		echo __METHOD__;
 	}
 
+	public function mid1()
+	{
+		echo __METHOD__;
+	}
+
 
 }

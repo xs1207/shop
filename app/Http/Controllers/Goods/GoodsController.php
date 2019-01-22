@@ -31,8 +31,27 @@ class GoodsController extends Controller
         return view('goods.list',$data);
     }
 
-//    public function add()
-//    {
-//
-//    }
+
+    /**
+     * 文件上传
+     */
+    public function uploadIndex()
+    {
+        return view('goods.upload');
+    }
+    public function uploadPdf(Request $request)
+    {
+//        echo "<pre>";print_r($_FILES);echo "</pre>";
+        $pdf=$request->file('zhu');
+//        var_dump($pdf);
+        $res=$pdf->extension();
+//        var_dump($res);
+        if($res!='pdf'){
+           die("上传格式不符合PDF格式");
+        }
+        $res1=$pdf->storeAs(date('Ymd'),str_random(4).'.pdf');
+        if($res1){
+            echo "上传成功";
+        }
+    }
 }
