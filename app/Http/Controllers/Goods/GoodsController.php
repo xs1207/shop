@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 
 use App\Model\GoodsModel;
 
+
+
+
 class GoodsController extends Controller
 {
     //
@@ -26,11 +29,31 @@ class GoodsController extends Controller
 
     public function goodsList()
     {
-        $list=GoodsModel::all()->toArray();
-        $data=['list'=>$list];
+
+        $search = request('search');
+        if(!empty($search)){
+            $list=GoodsModel::where('goods_name', 'like', '%' . $search . '%')->paginate(3);
+            $data=['list'=>$list];
+        }else{
+            $list=GoodsModel::paginate(3);
+            $data=['list'=>$list];
+        }
+
         return view('goods.list',$data);
     }
 
+
+
+ /*
+
+    //更新商品信息
+    public function UpdateGoodsInfo($goods_id)
+    {
+        $name=str_random(6);
+        $info=[]
+    }
+
+*/
 
     /**
      * 文件上传
@@ -54,4 +77,6 @@ class GoodsController extends Controller
             echo "上传成功";
         }
     }
+
+
 }

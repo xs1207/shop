@@ -50,3 +50,20 @@ $(".del").click(function(e){
         }
     })
 })
+
+
+////搜索
+//$("#search").click(function(e){
+//    e.preventDefault();
+//    //alert(111)
+//    var vl=$('#vl').val();
+//    //console.log(vl);
+//    $.ajax({
+//        headers: {
+//            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//        },
+//        url   :  "/goods/search",
+//        type   :  "post",
+//        data   :   {vl:vl},
+//    });
+//});

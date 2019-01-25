@@ -59,18 +59,18 @@ Route::get('/query/where','Test\TestController@query2');
 //Route::match(['get','post'],'/test/abc','Test\TestController@abc');
 Route::any('/test/abc','Test\TestController@abc');
 
-/*
+
 //test
 Route::get('/test/test1','Test\TestController@viewTest1');
 Route::get('/test/test2','Test\TestController@viewTest2');
 Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间件测试
-*/
-Route::middleware(['log.click'])->group(function(){
-    Route::get('/test/test1','Test\TestController@viewTest1');
-    Route::get('/test/test2','Test\TestController@viewTest2');
-    Route::get('/test/mid1','Test\TestController@mid1');
-    Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间件测试
-});
+
+//Route::middleware(['log.click'])->group(function(){
+//    Route::get('/test/test1','Test\TestController@viewTest1');
+//    Route::get('/test/test2','Test\TestController@viewTest2');
+//    Route::get('/test/mid1','Test\TestController@mid1');
+//    Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间件测试
+//});
 
 //用户注册
 Route::get('/users/reg','User\UserController@reg');
@@ -140,3 +140,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //文件上传
 Route::get('/upload','Goods\GoodsController@uploadIndex');
 Route::post('/upload/pdf','Goods\GoodsController@uploadPdf');
+
+//在线订座
+Route::get('/movie/seat','Movie\MvController@index');
+Route::get('/movie/buy/{id}','Movie\MvController@buy');
+
+
