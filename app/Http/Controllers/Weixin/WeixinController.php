@@ -57,7 +57,7 @@ class WeixinController extends Controller
             $u = WeixinUser::where(['openid'=>$openid])->first();
             //var_dump($u);die;
             if($u){       //用户不存在
-                echo '此用户已存在';
+                echo '用户已存在';
             }else{
                 $user_data = [
                     'openid'            => $openid,
