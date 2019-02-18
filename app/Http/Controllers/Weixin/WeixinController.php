@@ -39,7 +39,7 @@ class WeixinController extends Controller
     {
         $data = file_get_contents("php://input");
         //解析XML
-        $xml=simplexml_load_dom($data);   //将xml字符型转换成对象
+        $xml=simplexml_load_string($data);   //将xml字符型转换成对象
         $event = $xml->Event;               //事件类型
 
         if($event=='subscribe'){
