@@ -171,26 +171,16 @@ class WeixinController extends Controller
         $data = [
             "button" => [
                 [
-<<<<<<< HEAD
-                    "name" => "英雄联盟",
-                    "sub_button"=>[
-                        [
-                            'type'=>'view',     // view类型 跳转指定 URL
-=======
 
                     "name" => "英雄联盟",
                     "sub_button"=>[
                         [
                             'type'=>'view',        // view类型 跳转指定 URL
->>>>>>> weixin
                             'name'=>'首页',
                             "url" => "https://lol.qq.com"
                         ]
                     ]
-<<<<<<< HEAD
-=======
 
->>>>>>> weixin
                 ],
                 [
                     "name" => "NBA联盟",
@@ -200,6 +190,7 @@ class WeixinController extends Controller
                             'name'=>'金州勇士',
                             "url" => "https://china.nba.com/warriors/"
                         ],
+
                         [
                             'type'=>'view',     // view类型 跳转指定 URL
                             'name'=>'nba中文网',
