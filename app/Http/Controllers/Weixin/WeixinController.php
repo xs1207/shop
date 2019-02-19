@@ -81,7 +81,7 @@ class WeixinController extends Controller
             }
         }elseif($event=='CLICK'){               //click菜单
             if($xml->Eventkey=='kefu01'){
-                $this->kefu01(openid,$xml->ToUserName);
+                $this->kefu01($openid,$xml->ToUserName);
             }
         }
 
@@ -97,7 +97,7 @@ class WeixinController extends Controller
     public function kefu01($openid,$from)
     {
         // 文本消息
-        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        $xml_response = '<xml><ToUserName><![CDATA[\'.$openid.\']]></ToUserName><FromUserName><![CDATA[\'.$from.\']]></FromUserName><CreateTime>\'.time().\'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '徐小浩为你报时, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
         echo $xml_response;
     }
 
@@ -200,14 +200,9 @@ class WeixinController extends Controller
 
                 ],
                 [
-                    "name" => "客服",
-                    "sub_button"=>[
-                        [
-                            'type'=>'click',        // view类型 跳转指定 URL
-                            'name'=>'徐小浩',
-                            "key" => "kefu01"
-                        ]
-                    ]
+                    "type"  => "click",      // click类型
+                    "name"  => "客服浩",
+                    "key"   => "kefu01"
                 ]
             ]
 
