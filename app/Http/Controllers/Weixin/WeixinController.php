@@ -45,10 +45,12 @@ class WeixinController extends Controller
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
 
         $event = $xml->Event;                       //事件类型
+        $openid = $xml->FromUserName;               //用户openid
         //var_dump($xml);echo '<hr>';
 
-        if($event=='subscribe'){
-            $openid = $xml->FromUserName;               //用户openid
+        //判断事件类型
+        if($event=='subscribe'){                        //扫码关注事件
+
             $sub_time = $xml->CreateTime;               //扫码关注时间
 
 
@@ -77,10 +79,26 @@ class WeixinController extends Controller
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
                 var_dump($id);
             }
+        }elseif($event=='CLICK'){               //click菜单
+            if($xml->Eventkey=='kefu01'){
+                $this->kefu01(openid,$xml->ToUserName);
+            }
         }
 
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+    }
+
+    /**
+     * 客服处理
+     * @param $openid       用户openid
+     * @param $from         开发者公众号id 非 APPID
+     */
+    public function kefu01($openid,$from)
+    {
+        // 文本消息
+        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        echo $xml_response;
     }
 
 
@@ -153,20 +171,17 @@ class WeixinController extends Controller
         $data = [
             "button" => [
                 [
-                         // view类型 跳转指定 URL
+
                     "name" => "英雄联盟",
                     "sub_button"=>[
                         [
-                            'type'=>'view',
+                            'type'=>'view',        // view类型 跳转指定 URL
                             'name'=>'首页',
                             "url" => "https://lol.qq.com"
                         ]
                     ]
 
-                ]
-            ],
-
-            "button" => [
+                ],
                 [
                     "name" => "NBA联盟",
                     "sub_button"=>[
@@ -179,13 +194,22 @@ class WeixinController extends Controller
                         [
                             'type'=>'view',     // view类型 跳转指定 URL
                             'name'=>'nba中文网',
-                            "url" => "china.nba.com"
+                            "url" => "https://china.nba.com"
                         ]
                     ]
 
+                ],
+                [
+                    "name" => "客服",
+                    "sub_button"=>[
+                        [
+                            'type'=>'click',        // view类型 跳转指定 URL
+                            'name'=>'徐小浩',
+                            "key" => "kefu01"
+                        ]
+                    ]
                 ]
             ]
-
 
         ];
         $r = $client->request('POST',$url,[
