@@ -116,6 +116,37 @@ class WeixinController extends Controller
 
         }
 
+    }
+
+    /**
+     * 群发消息
+     */
+    public function textGroup()
+    {
+        $url='https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getWXAccessToken();
+        //请求微信接口
+        $client=new GuzzleHttp\Client(['base_uro'=>$url]);
+        $data=[
+            'filter'=>[
+                'is_to_all'=>true,
+                'tag_id'=>2  //is_to_all为true可不填写
+            ],
+            'text'=>[
+                'content'=>'孔子曰：慌鸡毛'
+            ],
+            'msgtype'=>'text'
+
+        ];
+        $r=$client->request('post',$url,['body'=>json_encode($data,JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr=json_decode($r->getBody(),true);
+        var_dump($response_arr);
+        if($response_arr['errcode']==0){
+            echo "群发成功";
+        }else{
+            echo "群发失败，请重试";
+            echo "<br/>";
+        }
 
     }
 
