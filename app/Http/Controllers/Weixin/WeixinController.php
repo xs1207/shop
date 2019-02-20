@@ -213,6 +213,8 @@ class WeixinController extends Controller
 
         }
 
+        return $file_name;
+
     }
 
     /**
