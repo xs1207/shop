@@ -50,6 +50,7 @@ class WeixinController extends Controller
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
 
 
+
         $event = $xml->Event;                       //事件类型
         $openid = $xml->FromUserName;               //用户openid
         //var_dump($xml);echo '<hr>';
@@ -194,6 +195,7 @@ class WeixinController extends Controller
         //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
         //echo $_GET['echostr'];
         $data = file_get_contents("php://input");
+
 
     }
 
