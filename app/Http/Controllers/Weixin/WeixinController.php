@@ -55,15 +55,9 @@ class WeixinController extends Controller
                 $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
                 exit();
-<<<<<<< HEAD
-            }elseif($xml->MsgType=='image'){
-                //视业务需求是否需要下载保存图片
-                if(1){
-=======
             }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
->>>>>>> weixin
                     $this->dlWxImg($xml->MediaId);
                     $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
@@ -110,8 +104,7 @@ class WeixinController extends Controller
             }
         }
 
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+
     }
 
     /**
@@ -132,19 +125,12 @@ class WeixinController extends Controller
     public function dlWxImg($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-<<<<<<< HEAD
-
-        //保存图片
-        $Cloent = new GuzzleHttp\Client();
-        $response = $Cloent->get($url);
-=======
         //echo $url;echo '</br>';
 
         //保存图片
         $client = new GuzzleHttp\Client();
         $response = $client->get($url);
         //$h = $response->getHeaders();
->>>>>>> weixin
 
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
@@ -152,14 +138,6 @@ class WeixinController extends Controller
 
         $wx_image_path = 'wx/images/'.$file_name;
         //保存图片
-<<<<<<< HEAD
-        $r = Storage::disk('local')->put($wx_image_path,$response->getBoddy());
-        if($r){ //成功
-
-        }else{  //失败
-
-        }
-=======
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){     //保存成功
 
@@ -167,7 +145,6 @@ class WeixinController extends Controller
 
         }
 
->>>>>>> weixin
     }
 
 
@@ -186,6 +163,7 @@ class WeixinController extends Controller
         $data = file_get_contents("php://input");
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+
     }
 
     /**
