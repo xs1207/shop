@@ -146,6 +146,8 @@ Route::get('/movie/seat','Movie\MvController@index');
 Route::get('/movie/buy/{id}','Movie\MvController@buy');
 
 //微信
+Route::get('/weixin/refresh_token','Weixin\WeixinController@refreshToken');     //刷新token
+
 Route::get('/weixin/test','Weixin\WeixinController@test');
 Route::get('/weixin/valid','Weixin\WeixinController@validToken');
 Route::get('/weixin/valid1','Weixin\WeixinController@validToken1');
