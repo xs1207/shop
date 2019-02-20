@@ -48,6 +48,25 @@ class WeixinController extends Controller
         $openid = $xml->FromUserName;               //用户openid
         //var_dump($xml);echo '<hr>';
 
+        //处理用户发送的消息
+        if(isset($xml->MsgType)){
+            if($xml->MsgType=='text'){
+                $msg=$xml->Content;
+                $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response;
+                exit();
+            }elseif($xml->MsgType=='image'){       //用户发送图片信息
+                //视业务需求是否需要下载保存图片
+                if(1){  //下载图片素材
+                    $this->dlWxImg($xml->MediaId);
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    echo $xml_response;
+                }
+            }
+        }
+
+
+
         //判断事件类型
         if($event=='subscribe'){                        //扫码关注事件
 
@@ -65,7 +84,7 @@ class WeixinController extends Controller
             $u = WeixinUser::where(['openid'=>$openid])->first();
             //var_dump($u);die;
             if($u){       //用户不存在
-                echo '用户已存在';
+                echo '此用户已存在';
             }else{
                 $user_data = [
                     'openid'            => $openid,
@@ -80,8 +99,8 @@ class WeixinController extends Controller
                 var_dump($id);
             }
         }elseif($event=='CLICK'){               //click菜单
-            if($xml->Eventkey=='kefu01'){
-                $this->kefu01(openid,$xml->ToUserName);
+            if($xml->EventKey=='kefu01'){
+                $this->kefu01($openid,$xml->ToUserName);
             }
         }
 
@@ -97,8 +116,36 @@ class WeixinController extends Controller
     public function kefu01($openid,$from)
     {
         // 文本消息
-        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. '徐小浩为你报时, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
         echo $xml_response;
+    }
+
+    /**
+     * 下载图片素材
+     */
+    public function dlWxImg($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        //echo $url;echo '</br>';
+
+        //保存图片
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
+
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
+
+        $wx_image_path = 'wx/images/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+
+        }else{      //保存失败
+
+        }
+
     }
 
 
@@ -200,14 +247,9 @@ class WeixinController extends Controller
 
                 ],
                 [
-                    "name" => "客服",
-                    "sub_button"=>[
-                        [
-                            'type'=>'click',        // view类型 跳转指定 URL
-                            'name'=>'徐小浩',
-                            "key" => "kefu01"
-                        ]
-                    ]
+                    "type"  => "click",      // click类型
+                    "name"  => "客服浩",
+                    "key"   => "kefu01"
                 ]
             ]
 
