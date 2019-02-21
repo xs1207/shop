@@ -185,7 +185,7 @@ class WeixinController extends Controller
                 'tag_id'=>2  //is_to_all为true可不填写
             ],
             'text'=>[
-                'content'=>'孔子曰：慌鸡毛'
+                'content'=>'孔子、老子、孟子 曰：慌鸡毛'
             ],
             'msgtype'=>'text'
 

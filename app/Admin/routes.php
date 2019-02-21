@@ -14,4 +14,6 @@ Route::group([
     $router->resource('/goods',GoodsController::class);
     $router->resource('/wx/wx_users',WeixinController::class);
     $router->resource('/wx/wx_media',WeixinMediaController::class);
+    $router->resource('/wx/group',WeixinGroupController::class);
+    $router->post('/wx/group', 'WeixinGroupController@textGroup');
 });
