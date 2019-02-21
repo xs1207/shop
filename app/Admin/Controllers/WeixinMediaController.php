@@ -92,13 +92,13 @@ class WeixinMediaController extends Controller
         $grid->msg_id('Msg id');
         $grid->local_file_name('Local file name')->display(function($image){
             if(substr($image,-3,3)=='mp4'){
-                $common='<a href="/wx/video/'.$image.'">点击观看</a>';
+                $url='<a href="/wx/video/'.$image.'">点击观看</a>';
             }elseif(substr($image,-3,3)=='amr'){
-                $common='<a href="/wx/voice/'.$image.'">视听语言</a>';
+                $url='<a href="/wx/voice/'.$image.'">视听语言</a>';
             }else{
-                $common='<img src="https://dkl.tactshan.com/wx/image/'.$image.'" width=80px;height=80px;>';
+                $url='<img src="https://dkl.tactshan.com/wx/image/'.$image.'" width=80px;height=80px;>';
             }
-            return $common;
+            return $url;
         });
         $grid->local_file_path('Local file path');
 

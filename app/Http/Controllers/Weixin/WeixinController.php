@@ -270,6 +270,7 @@ class WeixinController extends Controller
         }else{      //保存失败
 
         }
+        return $file_name;
     }
 
 
@@ -298,6 +299,7 @@ class WeixinController extends Controller
         }else{      //保存失败
 
         }
+        return $file_name;
     }
 
 
