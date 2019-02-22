@@ -157,8 +157,7 @@ class WeixinBkteController extends Controller
         echo 'save_file_path: '.$save_file_path;echo '<hr>';
 
         //上传至微信永久素材
-        $this->upMaterial($save_file_p
-        ath);
+        $this->upMaterial($save_file_path);
 
     }
     protected $redis_weixin_access_token = 'str:weixin_access_token';       //微信 access_token
