@@ -155,7 +155,16 @@ Route::post('/weixin/valid1','Weixin\WeixinController@wxEvent');        //接收
 Route::post('/weixin/valid','Weixin\WeixinController@validToken');
 
 Route::get('/weixin/create_menu','Weixin\WeixinController@createMenu');     //创建菜单
-Route::get('/weixin/group','Weixin\WeixinController@textGroup');     //创建菜单
+Route::get('/weixin/group','Weixin\WeixinController@textGroup');     //前台发送消息
+
+
+Route::get('/form/show','Weixin\WeixinController@formShow');     //表单测试
+Route::post('/form/test','Weixin\WeixinController@formTest');     //表单测试
+
+
+Route::get('/weixin/material/list','Weixin\weixinController@materialList');     //获取永久素材列表
+Route::get('/weixin/material/upload','Weixin\weixinController@upMaterial');     //上传永久素材
+Route::post('/weixin/material','Weixin\WeixinController@materialTest');     //创建菜单
 
 
 
