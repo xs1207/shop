@@ -11,6 +11,7 @@ use GuzzleHttp;
 use Illuminate\Support\Facades\Storage;
 
 use App\Model\WeixinMedia;
+use App\Model\WeixinChatModel;
 
 class WeixinController extends Controller
 {
@@ -68,9 +69,21 @@ class WeixinController extends Controller
         // 处理用户发送消息
         if(isset($xml->MsgType)){
             if($xml->MsgType=='text'){            //用户发送文本消息
-                $msg = $xml->Content;
-                $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
-                echo $xml_response;
+                $msg=$xml->Content;
+                $data=[
+                    'msg'    => $xml->Content,
+                    'msgid'  => $xml->MsgId,
+                    'openid' => $openid,
+                    'msg_type' => 1,  // 1用户发送消息 2客服发送消息
+                    'add_time'=> time()
+                ];
+                $id = WeixinChatModel::insertGetId($data);
+                var_dump($id);
+
+//                $msg = $xml->Content;
+//                $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
+//                echo $xml_response;
+
             }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
@@ -488,6 +501,35 @@ class WeixinController extends Controller
 
     }
 
+    public function chatView()
+    {
+        $data=[
+            "openid"=>"ozJOO5jUo2Sda1SXPoc5p_pXeFPo",
+        ];
+        return view('weixin.pchat',$data);
+    }
+    public function getChatMsg()
+    {
+        $openid = $_GET['openid'];  //用户openid
+        $pos = $_GET['pos'];        //上次聊天位置
+        $msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->first();
+        //$msg = WeixinChatModel::where(['openid'=>$openid])->where('id','>',$pos)->get();
+        if($msg){
+            $response = [
+                'errno' => 0,
+                'data'  => $msg->toArray()
+            ];
+
+        }else{
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
+            ];
+        }
+
+        die( json_encode($response));
+
+    }
 }
 
 

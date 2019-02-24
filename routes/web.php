@@ -162,9 +162,12 @@ Route::get('/form/show','Weixin\WeixinController@formShow');     //表单测试
 Route::post('/form/test','Weixin\WeixinController@formTest');     //表单测试
 
 
-Route::get('/weixin/material/list','Weixin\weixinController@materialList');     //获取永久素材列表
-Route::get('/weixin/material/upload','Weixin\weixinController@upMaterial');     //上传永久素材
+Route::get('/weixin/material/list','Weixin\WeixinController@materialList');     //获取永久素材列表
+Route::get('/weixin/material/upload','Weixin\WeixinController@upMaterial');     //上传永久素材
 Route::post('/weixin/material','Weixin\WeixinController@materialTest');     //创建菜单
+
+Route::get('/weixin/kefu/chat','Weixin\WeixinController@chatView');           //客服
+Route::get('/weixin/chat/get_msg','Weixin\WeixinController@getChatMsg');           //私聊
 
 
 
