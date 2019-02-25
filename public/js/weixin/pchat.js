@@ -11,12 +11,21 @@ setInterval(function(){
         success :   function(d){
             if(d.errno==0){     //服务器响应正常
                 //数据填充
-                var msg_str = '<blockquote>' + d.data.openid +
-                    '<p>' + d.data.msg + '</p>' +
-                    '</blockquote>';
+                if(d.data.msg_type==2){
+                    var msg_str = '<blockquote>' + '客服' +
+                        '<p>' + d.data.msg + '</p>' +
+                        '</blockquote>';
 
-                $("#chat_div").append(msg_str);
-                $("#msg_pos").val(d.data.id)
+                    $("#chat_div").append(msg_str);
+                    $("#msg_pos").val(d.data.id)
+                }else{
+                    var msg_str = '<blockquote>' + d.data.openid +
+                        '<p>' + d.data.msg + '</p>' +
+                        '</blockquote>';
+
+                    $("#chat_div").append(msg_str);
+                    $("#msg_pos").val(d.data.id)
+                }
             }else{
 
             }

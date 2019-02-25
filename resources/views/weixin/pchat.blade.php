@@ -4,15 +4,19 @@
     <div class="container">
         <h3>客服私聊</h3>
 
-        <h2>开聊... openid:{{$openid}}</h2>
-
+        <h2>
+            {{--开聊... openid:{{$openid}}--}}
+            <img src="{{$user['headimgurl']}}" alt="头像" width="52px" class="img-rounded">
+            &nbsp;&nbsp;{{$user['nickname']}}
+        </h2>
+        <input type="hidden" value="{{$user['nickname']}}" id="nickname">
         <div class="chat" id="chat_div">
 
         </div>
         <hr>
 
         <form action="" class="form-inline">
-            <input type="hidden" value="{{$openid}}" id="openid">
+            <input type="hidden" value="{{$user['openid']}}" id="openid">
             <input type="hidden" value="1" id="msg_pos">
             <textarea name="" id="send_msg" cols="100" rows="5"></textarea>
             <button class="btn btn-info" id="send_msg_btn">Send</button>
