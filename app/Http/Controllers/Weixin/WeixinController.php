@@ -503,7 +503,7 @@ class WeixinController extends Controller
     public function chatView()
     {
         $data=[
-            "openid"=>"ozJOO5jUo2Sda1SXPoc5p_pXeFPo",
+            "openid"=>"ozJOO5jJZlriK5JlXQi2fDK7FkII",
         ];
         return view('weixin.pchat',$data);
     }
