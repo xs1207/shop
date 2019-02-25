@@ -168,6 +168,7 @@ Route::post('/weixin/material','Weixin\WeixinController@materialTest');     //�
 
 Route::get('/weixin/kefu/chat','Weixin\WeixinController@chatView');           //客服
 Route::get('/weixin/chat/get_msg','Weixin\WeixinController@getChatMsg');           //私聊
+Route::post('/weixin/chat/get_msg','Weixin\WeixinController@msg');           //私聊
 
 
 

@@ -528,7 +528,52 @@ class WeixinController extends Controller
         }
 
         die( json_encode($response));
+    }
 
+    /**
+     * @param Request $request
+     * 客服发给用户
+     */
+    public function msg(Request $request)
+    {
+        $send_msg=$request->input('msg');
+        $openid=$request->input('openid');
+        $pos=$request->input('pos');
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->getWXAccessToken();
+        //请求微信接口
+        $client = new GuzzleHttp\Client(['base_uro' => $url]);
+        $data = [
+            "touser"=>$openid,
+            "msgtype"=>"text",
+            "text"=>
+            [
+                "content"=>$send_msg,
+            ]
+
+        ];
+        $r = $client->request('post', $url, ['body' => json_encode($data, JSON_UNESCAPED_UNICODE)]);
+        //解析接口返回信息
+        $response_arr = json_decode($r->getBody(), true);
+        if ($response_arr) {
+
+            $response = [
+                $data=[
+                    'msg'=>$send_msg,
+                    'openid'=>$openid,
+                    'msg_type'=>$pos,
+                    'add_time'=>time()
+                ],
+                WeixinChatModel::insertGetId($data),
+                'errno' => 0,
+                'data'  => $data
+            ];
+        } else {
+            $response = [
+                'errno' => 50001,
+                'msg'   => '服务器异常，请联系管理员'
+            ];
+        }
+        die( json_encode($response));
     }
 }
 
