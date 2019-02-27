@@ -78,7 +78,8 @@ class OrderController extends Controller
      */
     public function orderList(Request $request)
     {
-        $list=OrderModel::all()->toArray();
+        $list=OrderModel::orderBy('order_id','desc')->get()->toArray();
+//        print_r($list);die;
         $data=['list'=>$list];
         return view('order.list',$data);
     }
