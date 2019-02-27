@@ -170,7 +170,7 @@ class PayController extends Controller
                     'pay_time'=>time()      //支付时间
                 ];
                 $where=[
-                    'order_number'=>$order_number       //订单号
+                    'order_sn'=>$order_number       //订单号
                 ];
                 $res=OrderModel::where($where)->update($data);
 //修改库存
