@@ -16,11 +16,13 @@
                 <td>￥{{$v['order_amount'] / 100}}</td>
                 <td>
                     @if($v['is_pay']==0)
-                    <a href="/pay/ment/{{$v['order_id']}}" class="btn btn-info" >去支付</a>
+                    <a href="/pay/ment/{{$v['order_id']}}" class="btn btn-info" >支付宝支付</a>
+                    <a href="/weixin/pay/test/{{$v['order_id']}}" class="btn btn-info" >微信支付</a>
+                    <a href="#"class="btn btn-info" >取消订单</a>
                     @elseif($v['is_pay']==1)
                         <a href="#" class="btn btn-info" >已支付</a>
+                        <a href="#" class="btn btn-info" >退款</a>
                     @endif
-                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#"class="btn btn-info" >取消订单</a>
                 </td>
             </tr>
         @endforeach

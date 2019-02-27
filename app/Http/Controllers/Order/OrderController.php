@@ -35,25 +35,30 @@ class OrderController extends Controller
             header("Refresh:1;url=/goods/list");
             die("购物车中无商品");
         }
+        $goods_id=[];
+        $num=[];
         $order_amount=0;
         foreach($cart_goods as $k=>$v){
-            $goods_info=GoodsModel::where(['goods_id'=>$v['goods_id']])->first()->toArray();
-            $goods_info['num']=$v['num'];
-            $cid=$v['id'];
-            $list[]=$goods_info;
-
-            //计算订单价格  商品数量*单价
-            $order_amount+=$goods_info['price']*$v['num'];
+            $goods_id[]=$v['goods_id'];
+            $num[]=$v['num'];
+            $goodsInfo=GoodsModel::where(['goods_id'=>$v['goods_id']])->first()->toArray();
+            $goodsInfo['num']=$v['num'];
+            $list[]=$goodsInfo;
+            //计算订单价格 = 商品数量*单价
+            $order_amount+=$goodsInfo['price']*$v['num'];
         }
-
         //生成订单号
+        $goods_id=implode(',',$goods_id);
+        $num=implode(',',$num);
         $order_sn = OrderModel::generateOrderSN();
 //        echo $order_sn;echo "</br>";
         $data=[
             'order_sn'=>$order_sn,
             'uid'=>session()->get('uid'),
             'add_time'=>time(),
-            'order_amount'=>$order_amount
+            'order_amount'=>$order_amount,
+            'goods_id'=>$goods_id,
+            'goods_num'=>$num
         ];
 //        print_r($data);die;
         $oid = OrderModel::insertGetId($data);
