@@ -150,19 +150,16 @@ class PayController extends Controller
     public function notice()
     {
         $data = file_get_contents("php://input");
-
         //记录日志
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
-
+//        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+//        file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
         $xml = simplexml_load_string($data);
-
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
+//            $sign = true;
+            //微信支付回调
             //验证签名
-            $sign = true;
-//            $sign=$this->SetSign();
-//            $xml->sign==
-            if($sign){       //签名验证成功
+            $sign=$this->wxSign($data);
+            if($sign==$xml->sign){       //签名验证成功
                 //TODO 逻辑处理  订单状态更新
                 $order_number=$xml->out_trade_no;
                 $data=[
@@ -232,6 +229,15 @@ class PayController extends Controller
         }
         return $response;
     }
+
+    public function wxSign($xml){
+        $data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        $this->values =[];
+        $this->values =$data;
+        $sign=$this->SetSign();
+        return $sign;
+    }
+
 
 
 }
