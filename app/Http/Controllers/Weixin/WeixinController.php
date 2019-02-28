@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Model\WeixinMedia;
 use App\Model\WeixinChatModel;
-use App\Model\WeixinLoginModel;
+//use App\Model\WeixinLoginModel;
+use App\Model\UserModel;
 
 
 class WeixinController extends Controller
