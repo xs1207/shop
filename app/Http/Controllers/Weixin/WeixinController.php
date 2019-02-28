@@ -616,7 +616,7 @@ class WeixinController extends Controller
         $where=['unionid'=>$unionid];
         $wx_user_info = WeixinUser::where($where)->first();
         if($wx_user_info){
-            $user_info = UserModel::where(['wechat_id'=>$wx_user_info->id])->first();
+            $user_info = UserModel::where(['wx_id'=>$wx_user_info->id])->first();
         }
         if(empty($wx_user_info)){
             //第一次登录
