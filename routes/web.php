@@ -176,6 +176,6 @@ Route::post('/weixin/pay/notice','Weixin\PayController@notice');      //微信�
 Route::get('/weixin/pay/wxsuccess','Weixin\PayController@qrwx');      //微信支付视图层
 
 
-Route::get('/weixin/login','Weixin\WeixinLogin@WeixinLogin');      //微信登录视图层
-Route::get('/weixin/getcode','Weixin\WeixinLogin@getCode');      //接收code
+Route::get('/weixin/login','Weixin\WeixinController@WeixinLogin');      //微信登录视图层
+Route::get('/weixin/getcode','Weixin\WeixinController@getCode');      //接收code
 
