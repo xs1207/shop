@@ -25,6 +25,8 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-info" style="width: 80px">登录</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxe24f70961302b5a5&redirect_uri=http%3a%2f%2fmall.77sc.com.cn%2fweixin.php%3fr1%3dhttp%3a%2f%2fdkl.tactshan.com%2fweixin%2fgetcode&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect"><font size="5px">微信登录</font></a>
             </div>
         </div>
     </form>

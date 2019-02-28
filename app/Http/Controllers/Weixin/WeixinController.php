@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Model\WeixinMedia;
 use App\Model\WeixinChatModel;
+use App\Model\WeixinLoginModel;
+
 
 class WeixinController extends Controller
 {
@@ -582,10 +584,6 @@ class WeixinController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * 微信登录
      */
-    public function WeixinLogin()
-    {
-        return view ('weixin.login');
-    }
 
     public function getCode()
     {
@@ -610,7 +608,24 @@ class WeixinController extends Controller
 
         $user_arr = json_decode($user_json,true);
         echo '<hr>';
-        echo '<pre>';print_r($user_arr);echo '</pre>';;
+        echo '<pre>';print_r($user_arr);echo '</pre>';
+
+        //扫码登录入库
+        $data=[
+            'openid'=>$user_arr['openid'],
+            'nickname'=>$user_arr['nickname'],
+            'sex'=>$user_arr['sex'],
+            'language'=>$user_arr['language'],
+            'headimgurl'=>$user_arr['headimgurl'],
+            'unionid'=>$user_arr['unionid'],
+            'add_time'=>time(),
+        ];
+        $res=WeixinLoginModel::insertGetId($data);
+        if($res){
+            echo "登陆成功";
+        }else{
+            echo "登录失败";
+        }
     }
 
 
