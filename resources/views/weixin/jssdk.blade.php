@@ -37,9 +37,6 @@
                     }
                 });
             });
-        });
-
-        wx.ready(function(){
 
             $("#btn2").click(function () {
                 //扫一扫
@@ -51,19 +48,18 @@
                     }
                 });
             });
-        });
 
-        wx.ready(function(){
+//            $("#btn3").click(function () {
+//                wx.startSearchBeacons({
+//                    ticket:"",  //摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
+//                    complete:function(argv){
+////开启查找完成后的回调函数
+//                    }
+//                });
+//            });
 
-            $("#btn3").click(function () {
-                wx.startSearchBeacons({
-                    ticket:"",  //摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
-                    complete:function(argv){
-//开启查找完成后的回调函数
-                    }
-                });
-            });
         });
+        
     </script>
 
 @endsection
