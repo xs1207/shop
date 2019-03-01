@@ -656,28 +656,31 @@ class WeixinController extends Controller
 
     public function jssdkTest()
     {
-        $jsconfig=[
-            'appid'=>env('WX_APPID'),
-            'timestamp'=>time(),
+        //计算签名
+
+        $jsconfig = [
+            'appid' => env('WEIXIN_APPID_0'),        //APPID
+            'timestamp' => time(),
             'noncestr'    => str_random(10),
-//            'sign'      => $this->jsSign()
+            //'sign'      => $this->wxJsConfigSign()
         ];
-        $sign=$this->jsSign($jsconfig);
-        $jsconfig['sign']=$sign;
-        $data=[
-            'jsconfig'=>$jsconfig
+
+        $sign = $this->wxJsConfigSign($jsconfig);
+        $jsconfig['sign'] = $sign;
+        $data = [
+            'jsconfig'  => $jsconfig
         ];
-        return view('weixin.jssdk',$data);
+        return view('weixin.jssdk',$data);;
     }
     /**
      * @return string
      * 计算JSSDK sign
      */
-    public function jsSign($param)
+    public function wxJsConfigSign($param)
     {
         $current_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];     //当前调用 jsapi的 url
-        $ticket=$this->getTicket();
-        $str='jsapi_ticket='.$ticket.'&noncestr'.$param['noncestr'].'&timestamp='.$param['timestamp'].'&url='.$current_url;
+        $ticket = $this->getJsapiTicket();
+        $str =  'jsapi_ticket='.$ticket.'&noncestr='.$param['noncestr']. '&timestamp='. $param['timestamp']. '&url='.$current_url;
         $signature=sha1($str);
         return $signature;
     }
@@ -685,7 +688,7 @@ class WeixinController extends Controller
     /**
      * 获取jsapi_ticket
      */
-    public function getTicket()
+    public function getJsapiTicket()
     {
         //是否有缓存
         $ticket = Redis::get($this->redis_weixin_jsapi_ticket);
