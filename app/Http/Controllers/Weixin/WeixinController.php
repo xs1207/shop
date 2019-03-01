@@ -653,6 +653,25 @@ class WeixinController extends Controller
         header("refresh:2,url='/goods/list'");
     }
 
+    public function jssdkTest()
+    {
+        $jsconfig=[
+            'appid'=>env('WX_APPID'),
+            'timestamp'=>time(),
+            'noncestr'    => str_random(10),
+            'sign'      => $this->jsSign()
+        ];
+        $data=[
+            'jsconfig'=>$jsconfig
+        ];
+        return view('weixin.jssdk',$data);
+    }
+
+    public function jsSign()
+    {
+        $sign = str_random(15);
+        return $sign;
+    }
 
 }
 
