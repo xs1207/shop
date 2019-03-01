@@ -659,7 +659,7 @@ class WeixinController extends Controller
         //计算签名
 
         $jsconfig = [
-            'appid' => env('WEIXIN_APPID_0'),        //APPID
+            'appid' => env('WX_APPID'),        //APPID
             'timestamp' => time(),
             'noncestr'    => str_random(10),
             //'sign'      => $this->wxJsConfigSign()
@@ -667,10 +667,11 @@ class WeixinController extends Controller
 
         $sign = $this->wxJsConfigSign($jsconfig);
         $jsconfig['sign'] = $sign;
+//        print_r($jsconfig);die;
         $data = [
             'jsconfig'  => $jsconfig
         ];
-        return view('weixin.jssdk',$data);;
+        return view('weixin.jssdk',$data);
     }
     /**
      * @return string
