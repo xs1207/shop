@@ -5,6 +5,7 @@
         <h2>JSSDK</h2>
         <button id="btn1">选择照片</button>
         <button id="btn2">扫一扫</button>
+        <button id="btn3">摇一摇</button>
     </div>
 @endsection
 
@@ -20,7 +21,7 @@
             timestamp: '{{$jsconfig['timestamp']}}', // 必填，生成签名的时间戳
             nonceStr: '{{$jsconfig['noncestr']}}', // 必填，生成签名的随机串
             signature: '{{$jsconfig['sign']}}',// 必填，签名
-            jsApiList: ['chooseImage','uploadImage','getLocalImgData','startRecord','scanQRCode'] // 必填，需要使用的JS接口列表
+            jsApiList: ['chooseImage','uploadImage','getLocalImgData','startRecord','scanQRCode','startSearchBeacons'] // 必填，需要使用的JS接口列表
         });
 
         wx.ready(function(){
@@ -52,6 +53,17 @@
             });
         });
 
+        wx.ready(function(){
+
+            $("#btn3").click(function () {
+                wx.startSearchBeacons({
+                    ticket:"",  //摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
+                    complete:function(argv){
+//开启查找完成后的回调函数
+                    }
+                });
+            });
+        });
     </script>
 
 @endsection
