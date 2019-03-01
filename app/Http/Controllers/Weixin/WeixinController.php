@@ -660,7 +660,7 @@ class WeixinController extends Controller
             'appid'=>env('WX_APPID'),
             'timestamp'=>time(),
             'noncestr'    => str_random(10),
-            'sign'      => $this->jsSign()
+//            'sign'      => $this->jsSign()
         ];
         $sign=$this->jsSign($jsconfig);
         $jsconfig['sign']=$sign;
