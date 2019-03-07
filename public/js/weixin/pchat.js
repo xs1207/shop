@@ -19,7 +19,7 @@ setInterval(function(){
                     $("#chat_div").append(msg_str);
                     $("#msg_pos").val(d.data.id)
                 }else{
-                    var msg_str = '<blockquote>' + '用户' +
+                    var msg_str = '<blockquote align="rigth">' + '用户' +
                         '<p>' + d.data.msg + '</p>' +
                         '</blockquote>';
 
