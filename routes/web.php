@@ -60,7 +60,17 @@ Route::get('/query/where','Test\TestController@query2');
 Route::any('/test/abc','Test\TestController@abc');
 
 
+//加密解密
+Route::any('/test/encrpt','Test\TestController@encrpt');
+
+//签名
+Route::any('/test/sign','Test\TestController@sign');
+Route::any('/test/pub','Test\TestController@pub');
+
+
 //test
+Route::post('/test/curl','Test\TestController@curl');
+
 Route::get('/test/test1','Test\TestController@viewTest1');
 Route::get('/test/test2','Test\TestController@viewTest2');
 Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');//中间件测试
@@ -180,3 +190,20 @@ Route::get('/weixin/pay/wxsuccess','Weixin\PayController@qrwx');      //微信�
 Route::get('/weixin/getcode','Weixin\WeixinController@getCode');      //接收code
 
 Route::get('/weixin/jssdk','Weixin\WeixinController@jssdkTest');        //微信jssdk
+
+
+
+
+
+
+//考试
+Route::get('/weixin/ks/token/','Weixin\KsController@getAccessToken');
+Route::get('/weixin/ks/user/{openid}','Weixin\KsController@getUserInfo');
+Route::get('/weixin/ks/userlist','Weixin\KsController@userList');
+Route::get('/weixin/ks/black/{id}','Weixin\KsController@black');
+Route::get('/weixin/ks/tags/','Weixin\KsController@getWxTags');
+Route::get('/weixin/ks/create_tag/','Weixin\KsController@createWxTag');
+
+
+
+
