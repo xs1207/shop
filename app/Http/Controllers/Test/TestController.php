@@ -196,6 +196,54 @@ class TestController extends Controller
 		return $res;
 	}
 
+	/**
+	 * 接口测试注册
+	 */
+	public function doReg(Request $request)
+	{
+		$rpwd=$request->input('rpwd');
+		$rpwd1=$request->input('rpwd1');
+		if($rpwd!==$rpwd1){
+			die("密码不一致");
+		}
+
+		$pwd=password_hash($rpwd1,PASSWORD_BCRYPT);
+		$data=[
+				'name'=>$request->input('rname'),
+				'pwd'=>$pwd,
+				'email'=>$request->input('remail'),
+				'reg_time'  => time(),
+		];
+		$u=UserModel::where(['name'=>$request->input('rname')])->first();
+		if($u){
+			$response=[
+					'erron'=>50001,
+					'msg'=>	"用户名已存在"
+			];
+		}else{
+			$uid=UserModel::insertGetId($data);
+			//var_dump($uid);
+			if($uid){
+				setcookie('name',$uid,time()+86400,'/','',false,true);
+				$response=[
+						'erron'=>0,
+						'msg'=>	"登陆成功"
+				];
+			}else{
+				$response=[
+						'erron'=>50002,
+						'msg'=>	"用户名已存在"
+				];
+			}
+		}
+		return $response;
+
+	}
+
+	/**
+	 * @param Request $request
+	 * @return 接口测试登录
+	 */
 	public function login(Request $request)
 	{
 		$name=$request->input('name');
