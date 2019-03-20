@@ -74,6 +74,7 @@ Route::any('/test/pub','Test\TestController@pub');
 Route::post('/test/hb','Test\TestController@application');  // jquery 测试接口
 Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试
 Route::post('/test/login','Test\TestController@login');   //登录
+Route::post('/test/reg','Test\TestController@reg');   //登录
 
 
 //test

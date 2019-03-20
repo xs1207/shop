@@ -199,7 +199,7 @@ class TestController extends Controller
 	/**
 	 * 接口测试注册
 	 */
-	public function doReg(Request $request)
+	public function reg(Request $request)
 	{
 		$rpwd=$request->input('rpwd');
 		$rpwd1=$request->input('rpwd1');
