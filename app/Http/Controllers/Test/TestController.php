@@ -167,10 +167,22 @@ class TestController extends Controller
 		var_dump($result);
 	}
 
-	public function hhbb()
-	{
-		echo "<pre>";print_r($_POST);echo"</pre>";
+	public  function  application(Request $request){
+		$username=$request->input("username");
+		if($username){
+			$response=[
+					'error'=>0,
+					'msg'=>"数据已经收到:".$username
+			];
+		}else{
+			$response=[
+					'error'=>5001,
+					'msg'=>"数据未收到".$username
+			];
+		}
+		return $response;
 	}
+
 
 
 }
