@@ -183,6 +183,11 @@ class TestController extends Controller
 		return $response;
 	}
 
+	public function hhb()
+	{
+		$data=$_POST;
+		echo json_encode($data);
+	}
 
 
 }
