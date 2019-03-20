@@ -169,6 +169,7 @@ class TestController extends Controller
 
 	public function hb()
 	{
+		echo 123;
 		echo "<pre>";print_r($_POST);echo"</pre>";
 	}
 
