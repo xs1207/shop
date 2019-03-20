@@ -68,7 +68,7 @@ Route::any('/test/sign','Test\TestController@sign');
 Route::any('/test/pub','Test\TestController@pub');
 
 //Hbudder
-Route::post('/test/hb','Test\TestController@hb');
+Route::post('/a','Test\TestController@hb');
 
 
 //test
