@@ -186,7 +186,14 @@ class TestController extends Controller
 	public function hhb()
 	{
 		$data=$_POST;
-		echo json_encode($data);
+		$data=json_encode($data);
+		if(!empty($data)){
+			$res=[
+				'errno' =>0,
+				'msg'=>$data
+			];
+		}
+		return $res;
 	}
 
 
