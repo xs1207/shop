@@ -67,9 +67,13 @@ Route::any('/test/encrpt','Test\TestController@encrpt');
 Route::any('/test/sign','Test\TestController@sign');
 Route::any('/test/pub','Test\TestController@pub');
 
-//Hbudder
-Route::post('/test/hb','Test\TestController@application');
-Route::post('/test/hhb','Test\TestController@hhb');
+/**
+ * Hbudder
+ */
+
+Route::post('/test/hb','Test\TestController@application');  // jquery 测试接口
+Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试
+Route::post('/test/login','Test\TestController@login');   //登录
 
 
 //test

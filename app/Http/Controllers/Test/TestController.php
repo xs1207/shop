@@ -196,5 +196,40 @@ class TestController extends Controller
 		return $res;
 	}
 
+	public function login(Request $request)
+	{
+		$name=$request->input('name');
+		$pwd=$request->input('pwd');
+
+		$res=UserModel::where(['name'=>$name])->first();
+		if($res){
+			if(password_verify($pwd,$res->pwd)){
+
+				$token = substr(md5(time().mt_rand(1,99999)),10,10);
+//				echo $token;die;
+				setcookie('uid',$res->uid,time()+86400,'/','',false,true);
+				setcookie('name',$res->name,time()+86400,'/','',false,true);
+				setcookie('token',$token,time()+86400,'/users','',false,true);
+
+				$request->session()->put('u_token',$token);
+				$request->session()->put('uid',$res->uid);
+				$response=[
+					'erron'=>0,
+					'msg'=>	"登陆成功"
+				];
+			}else{
+				$response=[
+					'erron'=>0,
+					'msg'=>	"登陆成功"
+				];
+			}
+		}else{
+			$response=[
+				'erron'=>0,
+				'msg'=>	"登陆成功"
+			];
+		}
+		return $response;
+	}
 
 }
