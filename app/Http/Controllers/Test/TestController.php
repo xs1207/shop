@@ -167,5 +167,10 @@ class TestController extends Controller
 		var_dump($result);
 	}
 
+	public function hb()
+	{
+		echo "<pre>";print_r($_POST);echo"</pre>";
+	}
+
 
 }

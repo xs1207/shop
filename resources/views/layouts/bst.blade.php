@@ -7,6 +7,9 @@
 
 
     <title>微商城</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="bookmark" href="/favicon.ico"/>
+
     <link rel="stylesheet" href="{{URL::asset('/bootstrap/css/bootstrap.min.css')}}">
 </head>
 <body>
