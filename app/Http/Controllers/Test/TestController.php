@@ -219,14 +219,14 @@ class TestController extends Controller
 				];
 			}else{
 				$response=[
-					'erron'=>0,
-					'msg'=>	"登陆成功"
+					'erron'=>500,
+					'msg'=>	"登陆失败"
 				];
 			}
 		}else{
 			$response=[
-				'erron'=>0,
-				'msg'=>	"登陆成功"
+				'erron'=>500,
+				'msg'=>	"登陆失败"
 			];
 		}
 		return $response;
