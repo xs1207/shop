@@ -76,6 +76,7 @@ Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试
 Route::post('/test/login','Test\TestController@login');   //登录
 Route::post('/test/reg','Test\TestController@reg');   //登录
 
+Route::get('/test/center','Test\TestController@center')->middleware('check.cookie');   //用户中心
 
 //test
 Route::post('/test/curl','Test\TestController@curl');

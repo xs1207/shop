@@ -64,7 +64,9 @@ class UserController extends Controller
 				'email'=>$request->input('uemail'),
 				'reg_time'  => time(),
 		];
+
 		$u=UserModel::where(['name'=>$request->input('uname')])->first();
+//		echo $u;die;
 		if($u){
 			echo "用户名已存在";
 			header("refresh:1;/users/reg");

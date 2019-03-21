@@ -76,6 +76,8 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
+                        <a href="http://passport.shop.com/user/login">登录</a>
+                        <a href="http://passport.shop.com/user/register">注册</a>
                     @endauth
                 </div>
             @endif

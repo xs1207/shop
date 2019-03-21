@@ -280,4 +280,16 @@ class TestController extends Controller
 		return $response;
 	}
 
+	public function center(Request $request)
+	{
+		$is_login=$request->get('is_login');
+//		echo $is_login;die;
+		if($is_login!=1){
+			echo "请先登录";
+			header("refresh:1;url=http://passport.shop.com/user/login");die;
+		}
+
+		return view("user.userscenter");
+	}
+
 }
