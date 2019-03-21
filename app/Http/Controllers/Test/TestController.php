@@ -227,12 +227,12 @@ class TestController extends Controller
 				setcookie('name',$uid,time()+86400,'/','',false,true);
 				$response=[
 						'erron'=>0,
-						'msg'=>	"登陆成功"
+						'msg'=>	"注册成功"
 				];
 			}else{
 				$response=[
 						'erron'=>50002,
-						'msg'=>	"用户名已存在"
+						'msg'=>	"注册失败"
 				];
 			}
 		}
