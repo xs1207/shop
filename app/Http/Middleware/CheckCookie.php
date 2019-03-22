@@ -18,9 +18,10 @@ class CheckCookie
     {
         if(isset($_COOKIE['uid']) && isset($_COOKIE['token'])){
             //验证 token
-            $key="str:u:token:web:".$_COOKIE['uid'];
+            $key="str:u:token:".$_COOKIE['uid'];
             $token=redis::get($key);
-//            var_dump($token);die;
+            var_dump($token);
+            var_dump($_COOKIE['token']);die;
             if($_COOKIE['token']==$token){
                 //token  有效
                 $request->attributes->add(['is_login'=>1]);
