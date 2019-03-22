@@ -15,6 +15,18 @@ class TestController extends Controller
 	public $opensslPrivKey = './key/openssl_priv.key';
 	public $opensslPubKey = './key/openssl_pub.key';
 
+
+	public function index(Request $request)
+	{
+		$current_url='http://' .$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		$data=[
+			'login'=>$request->get('is_login'),
+			'current_url'=>urldecode($current_url)
+		];
+		return view('home.index',$data);
+	}
+
+
     public function abc()
     {
         var_dump($_POST);echo '</br>';

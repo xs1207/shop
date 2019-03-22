@@ -71,10 +71,13 @@ Route::any('/test/pub','Test\TestController@pub');
  * Hbudder
  */
 
+Route::get('/','Test\TestController@index')->middleware('check.cookie');   //首页
+
+
 Route::post('/test/hb','Test\TestController@application');  // jquery 测试接口
 Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试
 Route::post('/test/login','Test\TestController@login');   //登录
-Route::post('/test/reg','Test\TestController@reg');   //登录
+Route::post('/test/reg','Test\TestController@reg');   //注册
 
 Route::get('/test/center','Test\TestController@center')->middleware('check.cookie');   //用户中心
 

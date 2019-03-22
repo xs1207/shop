@@ -20,6 +20,7 @@ class CheckCookie
             //验证 token
             $key="str:u:token:web:".$_COOKIE['uid'];
             $token=redis::get($key);
+//            var_dump($token);die;
             if($_COOKIE['token']==$token){
                 //token  有效
                 $request->attributes->add(['is_login'=>1]);
