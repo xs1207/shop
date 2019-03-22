@@ -72,6 +72,7 @@
         <div class="top-right links">
             @if($login==1)
                 <a href="{{ url('/home') }}">Home</a>
+                <a href="http://dpassprot.tactshan.com/user/out?redirect={{$current_url}}">OUT</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
                 <a href="{{ route('register') }}">Register</a>
