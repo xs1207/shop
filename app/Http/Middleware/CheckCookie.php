@@ -19,7 +19,7 @@ class CheckCookie
         if(isset($_COOKIE['uid']) && isset($_COOKIE['token'])){
             //验证 token
             $key="str:u:token:".$_COOKIE['uid'];
-            $token=redis::get($key);
+            $token=redis::hget($key,'web');
             var_dump($token);
             var_dump($_COOKIE['token']);die;
             if($_COOKIE['token']==$token){
