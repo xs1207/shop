@@ -245,7 +245,7 @@ class TestController extends Controller
 				];
 			}else{
 				$response=[
-						'errno'=>0,
+						'errno'=>2222,
 						'msg'=>	"注册失败"
 				];
 			}
