@@ -235,7 +235,7 @@ class TestController extends Controller
 					'email'=>$request->input('remail'),
 					'reg_time'  => time(),
 			];
-			$uid=UserModel::insertGetId($dataq);
+			$uid=UserModel::insertGetId($data);
 			//var_dump($uid);
 			if($uid){
 				setcookie('name',$uid,time()+86400,'/','tactshan.com',false,true);
@@ -245,7 +245,7 @@ class TestController extends Controller
 				];
 			}else{
 				$response=[
-						'errno'=>50002,
+						'errno'=>0,
 						'msg'=>	"注册失败"
 				];
 			}
