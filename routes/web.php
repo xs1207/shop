@@ -73,6 +73,8 @@ Route::any('/test/pub','Test\TestController@pub');
 
 Route::get('/','Test\TestController@index')->middleware('check.cookie');   //首页
 
+Route::post('/test/appcenter','Test\TestController@appCenter');  // app 用户中心
+
 
 Route::post('/test/hb','Test\TestController@application');  // jquery 测试接口
 Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试

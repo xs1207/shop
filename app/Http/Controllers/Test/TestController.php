@@ -304,4 +304,37 @@ class TestController extends Controller
 		return view("user.userscenter");
 	}
 
+
+	public function appCenter(Request $request)
+	{
+		$token=$request->input('token');
+		$uid=$request->input('uid');
+
+		if(empty($token) || empty($uid)){
+			//请先登录
+			$reponse=[
+				'errno'=>500,
+				'msg'=>'请先登录'
+			];
+		}else{
+			//登陆后
+			$key='atr:u:token:'.$uid;
+			$red_token=Redis::hget($key,'app');
+			if($token==$red_token){
+				//登陆成功
+				$reponse=[
+						'errno'=>0,
+						'msg'=>'登录成功'
+				];
+			}else{
+				//登陆失败
+				$reponse=[
+						'errno'=>500,
+						'msg'=>'登录失败'
+				];
+			}
+		}
+		return $reponse;
+	}
+
 }
