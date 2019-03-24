@@ -235,7 +235,7 @@ class TestController extends Controller
 					'email'=>$request->input('remail'),
 					'reg_time'  => time(),
 			];
-			$uid=UserModel::insertGetId($data);
+			$uid=UserModel::insertGetId($data2);
 			//var_dump($uid);
 			if($uid){
 				setcookie('name',$uid,time()+86400,'/','tactshan.com',false,true);
