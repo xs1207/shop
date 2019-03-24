@@ -215,35 +215,37 @@ class TestController extends Controller
 	{
 		$rpwd=$request->input('rpwd');
 		$rpwd1=$request->input('rpwd1');
-		if($rpwd!==$rpwd1){
-			die("密码不一致");
-		}
 
-		$pwd=password_hash($rpwd1,PASSWORD_BCRYPT);
-		$data=[
-				'name'=>$request->input('rname'),
-				'pwd'=>$pwd,
-				'email'=>$request->input('remail'),
-				'reg_time'  => time(),
-		];
 		$u=UserModel::where(['name'=>$request->input('rname')])->first();
 		if($u){
 			$response=[
-					'erron'=>50001,
+					'errno'=>50001,
 					'msg'=>	"用户名已存在"
 			];
+		}else if($rpwd!==$rpwd1){
+			$response=[
+					'errno'=>50000,
+					'msg'=>	"密码与确认密码不一致"
+			];
 		}else{
-			$uid=UserModel::insertGetId($data);
+			$pwd=password_hash($rpwd1,PASSWORD_BCRYPT);
+			$data=[
+					'name'=>$request->input('rname'),
+					'pwd'=>$pwd,
+					'email'=>$request->input('remail'),
+					'reg_time'  => time(),
+			];
+			$uid=UserModel::insertGetId($dataq);
 			//var_dump($uid);
 			if($uid){
-				setcookie('name',$uid,time()+86400,'/','',false,true);
+				setcookie('name',$uid,time()+86400,'/','tactshan.com',false,true);
 				$response=[
-						'erron'=>0,
+						'errno'=>0,
 						'msg'=>	"注册成功"
 				];
 			}else{
 				$response=[
-						'erron'=>50002,
+						'errno'=>50002,
 						'msg'=>	"注册失败"
 				];
 			}
