@@ -215,7 +215,7 @@ class TestController extends Controller
 	{
 		$rpwd=$request->input('rpwd');
 		$rpwd1=$request->input('rpwd1');
-
+		$remali=$request->input('remail');
 		$u=UserModel::where(['name'=>$request->input('rname')])->first();
 		if($u){
 			$response=[
@@ -227,15 +227,20 @@ class TestController extends Controller
 					'errno'=>50000,
 					'msg'=>	"密码与确认密码不一致"
 			];
+		}else if(empty($remali)){
+			$response=[
+					'errno'=>50000,
+					'msg'=>	"邮箱不能为空"
+			];
 		}else{
 			$pwd=password_hash($rpwd1,PASSWORD_BCRYPT);
 			$data=[
 					'name'=>$request->input('rname'),
 					'pwd'=>$pwd,
-					'email'=>$request->input('remail'),
+					'email'=>$remali,
 					'reg_time'  => time(),
 			];
-			$uid=UserModel::insertGetId($data2);
+			$uid=UserModel::insertGetId($data);
 			//var_dump($uid);
 			if($uid){
 				setcookie('name',$uid,time()+86400,'/','tactshan.com',false,true);
