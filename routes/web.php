@@ -75,10 +75,13 @@ Route::get('/','Test\TestController@index')->middleware('check.cookie');   //首
 
 Route::post('/test/appcenter','Test\TestController@appCenter');  // app 用户中心
 
+Route::post('/test/alipay','Test\TestController@alipay');  // APP支付宝支付
 
 Route::post('/test/hb','Test\TestController@application');  // jquery 测试接口
 Route::post('/test/hhb','Test\TestController@hhb');       //  mui  接口测试
 
+//商品展示
+Route::get('/test/goods_list','Test\TestController@goodsList');
 
 Route::post('/test/login','Test\TestController@login');   //登录
 Route::post('/test/reg','Test\TestController@reg');   //注册

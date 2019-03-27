@@ -200,8 +200,6 @@ class AlipayController extends Controller
 
         return false;
     }
-
-
     /**
      * 转换字符集编码
      * @param $data

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Test;
 
+use App\Model\GoodsModel;
 use App\Model\UserModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -342,6 +343,12 @@ class TestController extends Controller
 			}
 		}
 		return $reponse;
+	}
+
+	public function goodsList()
+	{
+		$goodsInfo=GoodsModel::get();
+		return $goodsInfo;
 	}
 
 }
